@@ -3,6 +3,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Controller } from "react-hook-form";
+import './style.css'
+import { TextField } from "@material-ui/core";
 
 const schema = yup.object().shape({
   // name: yup.string().required('Name is required')
@@ -17,17 +19,48 @@ const ImageClassifier = () => {
     resolver: yupResolver(schema),
   });
   const { control } = methods;
+
+
+ 
+
+
+
   return (
-    <div className="justify-center ">
+    <div className="justify-center p-4">
       <FormProvider {...methods}>
-        <div className="w-25 flex justify-center	mt-20 ">
-          <div className="artboard artboard-horizontal phone-5 bg-slate-100	items-center rounded shadow-lg">
-            <h2 className="text-2xl	 mb-2	 justify-center text-center">
+        <div className=" flex justify-center	 ">
+          <div >
+            <h2 className="text-5xl	 mb-4	 justify-center text-center text-bold">
               Image Classifier Interface
             </h2>
-            <div className="justify-center text-center">
+            
+
+            <div className="grid grid-cols-12 p-4">
+              <div className="pl-20  col-span-9">
+                <div className="flex justify-center sm:justify-start flex-wrap -mx-16">
+                  <img
+                    label="Image"
+                    src={previewImage}
+                    alt="ClassifiedImage"
+                    style={{ width: "400px", height: "265px" }}
+                    id="screenshot" draggable="false"
+                  />
+         
+                </div>{" "}
+              </div>
+              <div className="pl-10 col-span-3">
+              <div className="justify-start text-center flex">
+            <button
+                className="btn bg-transparent	text-black	 btn bg-transparent	text-black	-danger m-2"
+                onClick={() => {
+                  setImageName("");
+                  setPreviewImage("");
+                }}
+              >
+                Reset
+              </button>
               {/* Image Upload  */}
-              <button className="btn btn-danger m-2">
+              <button className="btn bg-transparent	text-black	 btn bg-transparent	text-black	-danger m-2">
                 {" "}
                 <Controller
                   name="image"
@@ -65,52 +98,61 @@ const ImageClassifier = () => {
               </button>
               {/* Image Reset  */}
               <button
-                className="btn btn-danger m-2"
+                className="btn bg-transparent	text-black	 btn bg-transparent	text-black	-danger m-2"
                 onClick={() => {
-                  setImageName("");
-                  setPreviewImage("");
+                
                 }}
               >
-                Reset
+                Save
               </button>
             </div>
 
-            <div className="grid grid-cols-2 p-4">
-              <div className="pl-20  ">
-                <div className="flex justify-center sm:justify-start flex-wrap -mx-16">
-                  <img
-                    label="Image"
-                    src={previewImage}
-                    alt="ClassifiedImage"
-                    style={{ width: "400px", height: "265px" }}
-                  />
-                </div>{" "}
-              </div>
-              <div className="pl-10">
-                <p>
+
+
+<div>
+<Controller
+				name="name"
+				control={control}
+        className="w-full"
+				render={({ field }) => {
+					return (
+						<TextField
+							{...field}
+							label="Image Details"
+							id="name"
+							variant="outlined"
+							InputLabelProps={field.value && { shrink: true }}
+							fullWidth
+						/>
+					);
+				}}
+			/>
+
+
+ 
+</div>
+
+               
+                <div className="flex">
                   {" "}
-                  <b>Image Name :</b> {imageName}
-                </p>
-                <p>
-                  {" "}
-                  <b>Image Size :</b>
-                </p>
-                <div>
-                  {" "}
-                  <button className="btn btn-primary m-2">Label-1</button>
-                  <button className="btn btn-danger m-2">Label-2</button>
-                  <button className="btn btn-secondary m-2">Label-3</button>
+                  <button className="btn bg-transparent	text-black	  border-orange-500 m-2">Label-1</button>
+                  <button className="btn bg-transparent	text-black	 border-red-500 m-2">Label-2</button>
                 </div>
-                <div>
+                <div className="flex">
                   {" "}
-                  <button className="btn btn-primary m-2">Label-4</button>
-                  <button className="btn btn-danger m-2">Label-5</button>
-                  <button className="btn btn-secondary m-2">Label-6</button>
+                  <button className="btn bg-transparent	text-black	 border-pink-500 m-2">Label-3</button>
+                  <button className="btn bg-transparent	text-black	 border-blue m-2">Label-4</button>
                 </div>
-                <div className="pb-5">
-                  <p>Label 1: Size ,Label 2: Size </p>
-                  <p>Label 3: Size ,Label 4: Size </p>
-                  <p>Label 5: Size ,Label 6: Size </p>
+                <div className="flex">
+                  {" "}
+                  <button className="btn bg-transparent	text-black	 border-green-500 m-2">Label-5</button>
+                  <button className="btn bg-transparent	text-black	 border-cyan-500 m-2">Label-6</button>
+                </div>
+                <div className="whitespace-nowrap	">Image Size : </div>
+                <div className="whitespace-nowrap	">Image Format  : </div>
+                <div className="pb-5 pt-5 flex">
+                  <p className="whitespace-nowrap	">Label Size: </p>
+                 
                 </div>
               </div>
             </div>
